@@ -1,0 +1,32 @@
+{
+  "name": "microplan",
+  "version": "1.0.0",
+  "description": "Plan your project from command line",
+  "main": "microplan.js",
+  "scripts": {
+    "start": "node microplan.js",
+    "test": "standard --fix"
+  },
+  "bin": {
+    "microplan": "./microplan.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/argonlaser/microplan.git"
+  },
+  "author": "Venkata krishna Sundararajan(vkvenkat94@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/argonlaser/microplan/issues"
+  },
+  "homepage": "https://github.com/argonlaser/microplan#readme",
+  "devDependencies": {
+    "standard": "^8.5.0"
+  },
+  "dependencies": {
+    "colors": "^1.1.2",
+    "commander": "^2.9.0",
+    "fs-extra": "^1.0.0",
+    "path": "^0.12.7"
+  }
+}
