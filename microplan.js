@@ -8,7 +8,3 @@ program
   .command('plan [filename]', 'plan the microservice')
   .command('publish [filename]', 'publish the microservice')
   .parse(process.argv)
-
-if (process.argv) {
-  console.log(process.argv)
-}

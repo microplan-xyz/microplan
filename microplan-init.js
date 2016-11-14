@@ -18,5 +18,5 @@ args.forEach(function (arg) {
   } catch (err) {
     console.error(err)
   }
-//  console.log('init: %s', arg)
+  console.log('init: %s', arg)
 })
