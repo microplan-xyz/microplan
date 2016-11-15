@@ -14,11 +14,11 @@
     "type": "git",
     "url": "git+https://github.com/microplan-xyz/microplan.git"
   },
-  "contributors": {
+  "contributors": [
     "Venkata krishna Sundararajan <vkvenkat94@gmail.com>",
     "Vishnu Bharathi <vishnubharathi04@gmail.com> (https://twitter.com/scriptnull)",
     "Vasanth Selvam <11cs103@gmail.com> (http://twitter.com/11CS103)"
-  },
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/argonlaser/microplan/issues"
