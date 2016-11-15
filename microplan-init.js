@@ -1,6 +1,7 @@
 var program = require('commander')
 var fs = require('fs-extra')
 var path = require('path')
+var templateFileLocation = 'init.template.yaml'
 
 program
   .parse(process.argv)
@@ -14,7 +15,7 @@ if (args.length > 1) {
 
 args.forEach(function (arg) {
   try {
-    fs.copySync(path.join(__dirname, '/init.template'), arg)
+    fs.copySync(path.join(__dirname, templateFileLocation), arg)
   } catch (err) {
     console.error(err)
   }
