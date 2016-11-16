@@ -1,0 +1,21 @@
+feature: "Add homepage"
+description: "Have nice pictures and bold fonts"
+
+configuration:
+  gitterDEVChat:
+    type: gitter
+    url: "devUrl"
+  gitterProductChat:
+    type: gitter
+    url: "productUrl"
+
+plans:
+  - title: "Bootstrap angular.js"
+    description: "Write index.html as angular.js app"
+    in: gitterDEVChat
+
+  - title: "Team meeting about www service"
+    description: "speak about enhancing www"
+    in:
+      - gitterProductChat
+      - gitterDEVChat
