@@ -1,19 +1,21 @@
-feature: "add a loging page"
-description: "put textboxes etc."
-microservices:
-  www:
-     hosting: github
-     repoName: scriptnull/compilex
-  api:
-    hosting: gitlab
-    repoName: scriptnull/testing
+feature: "Add homepage"
+description: "Have nice pictures and bold fonts"
 
+configuration:
+  gitterDEVChat:
+    type: gitter
+    url: "https://webhooks.gitter.im/e/bfc08d73cc253d1b45df"
+  gitterProductChat:
+    type: gitter
+    url: "https://webhooks.gitter.im/e/e2ec1e9d7235aed750d2"
 
-plan:
-  - title: "write backend api"
-    des: "use postgres etc."
-    micro: api
+plans:
+  - title: "Bootstrap angular.js"
+    description: "Write index.html as angular.js app"
+    in: gitterDEVChat
 
-  - title: "put UI textbox"
-    des: "in home page put ...."
-    micro: www
+  - title: "Team meeting about www service"
+    description: "speak about enhancing www"
+    in:
+      - gitterProductChat
+      - gitterDEVChat
