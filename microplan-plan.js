@@ -6,22 +6,22 @@ var path = require('path')
 program
   .parse(process.argv)
 
-var args = program.args
+var planArgs = program.args
 
-if (!args.length) {
+if (!planArgs.length) {
   console.error('Filename required')
   process.exit(1)
 }
 
 if (program.force) console.log('  force: install')
-args.forEach(function (arg) {
+planArgs.forEach(function (planArg) {
   // Get document, or throw exception on error
   try {
-    var doc = yaml.safeLoad(fs.readFileSync(path.join(__dirname, arg), 'utf8'))
+    var doc = yaml.safeLoad(fs.readFileSync(path.join(__dirname, planArg), 'utf8'))
     console.log(doc)
   } catch (e) {
     console.log(e)
     process.exit(1)
   }
-  console.log('init: %s', arg)
+  console.log('init: %s', planArg)
 })
