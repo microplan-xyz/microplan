@@ -4,10 +4,10 @@ description: "Have nice pictures and bold fonts"
 configuration:
   gitterDEVChat:
     type: gitter
-    url: "https://webhooks.gitter.im/e/bfc08d73cc253d1b45df"
+    url: "devUrl"
   gitterProductChat:
     type: gitter
-    url: "https://webhooks.gitter.im/e/e2ec1e9d7235aed750d2"
+    url: "productUrl"
 
 plans:
   - title: "Bootstrap angular.js"
