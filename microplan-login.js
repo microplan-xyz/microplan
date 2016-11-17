@@ -1,6 +1,7 @@
 var program = require('commander')
 var fs = require('fs-extra')
 var path = require('path')
+var homeDir = require('home-dir')
 var credentialsLocation = '.microplan'
 
 program
@@ -14,11 +15,11 @@ if (loginArgs.length > 2) {
 }
 
 try {
-  fs.writeFile(path.join(__dirname, credentialsLocation), loginArgs[0], function (err) {
+  fs.writeFile(path.join(homeDir(), credentialsLocation), loginArgs[0], function (err) {
     if (err) {
       return console.log(err)
     }
-    console.log('The credentials was saved!')
+    console.log('The credentials was saved at ' + homeDir())
   })
 } catch (err) {
   console.error(err)
