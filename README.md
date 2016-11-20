@@ -38,8 +38,9 @@ $ microplan init feature-name
 ## Planning Tools
 | Tool | Status |
 |------|--------|
-| [Github](https://github.com/) | AVAILABLE |
-| [Gitlab](https://gitlab.com/) | PLANNED  |
+| [Gitter](https://gitter.im)   | AVAILABLE |
+| [Github](https://github.com/) | PLANNED   |
+| [Gitlab](https://gitlab.com/) | PLANNED   |
 
 ## Input Formats
 | Format | Status |
