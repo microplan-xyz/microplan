@@ -84,3 +84,15 @@ $ microplan publish feature-name.yml
 |--------|--------|
 | YAML   | AVAILABLE |
 | TOML   | PLANNED   |
+
+## Contributing
+Check the [issue tracker](https://github.com/microplan-xyz/microplan/issues) for work in progress. Before sending a PR or adding new feature, please take time to open an issue and discuss about it.
+
+If you are sending a PR, make sure to change the version in package.json according to your changes. You can use npm version command to achieve this.
+```bash
+$ npm version patch # for bug fixes
+$ npm version minor # for new features
+$ npm version major # for deprecation
+```
+
+`microplan` uses a automated publishing system. This means that, whenever your PR is merged, `microplan` will be published automatically to npm ( based on the version you gave in package.json ) 
