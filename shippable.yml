@@ -2,7 +2,9 @@ language: node_js
 
 node_js:
   - 0.12
-  
+
 build:
   ci:
     - echo "Please send a PR for adding tests. Thanks for taking time to look at this file."
+    - npm install
+    - ./autopublish.sh
