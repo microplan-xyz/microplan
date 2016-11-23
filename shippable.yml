@@ -3,6 +3,9 @@ language: node_js
 node_js:
   - 0.12
 
+env:
+  - secure: aCoNMONEmnTHRJIUsHZ+fwZn8JI8exAsn/oNNoXDnXAnP9SIL+a+bE7bMX2NtsUy3Tro8abgZC2rPznNN+UDp6MZSma34ZcUVNNVgu7BAjIwLHc5bRtyomYsUzRYdnw0M31jgi929QpSkBZBFckgeryNvKBZxJAWiv8GfoHm3klrC/qjbse87qYd6PjRAZHLk9FA1ntEi51w0bvYRp00+Kvz7VFeEzVa/3iBtj7FEEYOQ5iIDxs2Tg2uIauPVUzO8FS9UZkHrAWASM2usqPBMKhnF4ZKIjy7FvuFVvtQuG9I7nmFY2lD2B3KTLTfFG1PnApPpshPosV1tubmkDzdjg==
+
 build:
   ci:
     - echo "Please send a PR for adding tests. Thanks for taking time to look at this file."
