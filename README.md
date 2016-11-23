@@ -8,6 +8,8 @@
 
 > Plan your project from command line
 
+[![Run Status](https://api.shippable.com/projects/58287b8f8279be1000fa7edc/badge?branch=master)](https://app.shippable.com/projects/58287b8f8279be1000fa7edc)
+
 ## Install
 Make sure to have Node.js 0.12 or greater + npm on your machine.
 ```bash
@@ -60,7 +62,7 @@ plans:
 Its a base template, which you can use to plan things and publish the plan to different tools like github, gitlab and gitter.
 At the moment, we support only gitter and things are planned in our milestone.
 
-`configuration` object helps you to define configurations for various tools. ( Example, for gitter it will obviously have the secret webhook url, as shown in the above yml) 
+`configuration` object helps you to define configurations for various tools. ( Example, for gitter it will obviously have the secret webhook url, as shown in the above yml)
 
 `plans` is an array of items, which can be used to note down your plan in a step by step fashion and publish them. use the `in` property to express
 
