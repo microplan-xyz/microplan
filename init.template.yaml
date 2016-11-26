@@ -1,37 +1,53 @@
-feature: "Add homepage"
-description: "Have nice pictures and bold fonts"
+feature: "Microplan"
+description: "Bootstrap microplan "
 
 configuration:
-  gitterDEVChat:
+  gitterDevChat:
     type: gitter
-    url: "https://webhooks.gitter.im/e/bfc08d73cc253d1b45df"
-  gitterProductChat:
-    type: gitter
-    url: "https://webhooks.gitter.im/e/e2ec1e9d7235aed750d2"
-  gitlabProduct:
+    url: "https://webhooks.gitter.im/e/xxxxxxxxxxxxxxxxxxx"
+  gitlabBackend:
     type: gitlab
-    slug: argonlaser/gitlab-create-issue-test
-  githubProduct:
+    slug: microplan-xyz/product
+  githubCli:
     type: github
-    slug: argonlaser/test
+    slug: microplan-xyz/cli
 
 plans:
-  - title: "Bootstrap angular.js"
-    description: "Write index.html as angular.js app"
-    in: gitterDEVChat
+  # Create issue in github repository
+  - title: "Bootstrap CLI"
+    description: "Do `npm init` and use commander.js to build the CLI"
+    in: githubCli
 
-  - title: "Team meeting about www service"
-    description: "speak about enhancing www"
+  # Create issue in private gitlab repository
+  # Sends activity notification in gitter
+  - title: "Discussion on backend framework"
+    description: We are confused between using express.js and hapi. So lets discuss about it with benchmarks.
     in:
-      - gitterProductChat
-      - gitterDEVChat
+      - gitlabBackend
+      - gitterDevChat
 
-  - title: "Demo publish from microplan"
-    description: "Publish microplan"
-    in:
-      - gitlabProduct
+  # Create issue with big description in github repository
+  - title: "Add microplan link command"
+    in: githubCli
+    description: >
+                Add `microplan-link.js` file.
+                Bootstrap the initial commit with below code
+                ```javascript
+                var program = require('commander')
+                var fs = require('fs-extra')
+                var path = require('path')
 
-  - title: "Demo publish from microplan"
-    description: "Publish microplan"
-    in:
-      - githubProduct
+                program
+                  .parse(process.argv)
+
+                var commandArgs = program.args
+
+                if (commandArgs.length > 1) {
+                  console.error('argument required')
+                  process.exit(1)
+                }
+
+                commandArgs.forEach(function (arg) {
+                  console.log('command executed: %s', arg)
+                })
+                ```
