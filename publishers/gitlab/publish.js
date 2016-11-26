@@ -26,7 +26,7 @@ module.exports = function (publishItem, gitLabDone) {
 
   var optPayload = publishItem.plan
   if (!_.isEmpty(publishItem.plan.assignee)) {
-    optPayload.assignee_name = publishItem.plan.assignee
+    optPayload.assigneeName = publishItem.plan.assignee
   }
   createIssue(manPayload, optPayload, function (err, res) {
     if (err) {
