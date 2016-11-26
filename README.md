@@ -25,7 +25,7 @@ $ npm install -g microplan
 
 We wanted to solve a little bit of of the "Planning" side of the equation. We wanted a tool, that comes very handy. It should be very handy, like the terminal we open. wait ! why not, inside a terminal ?
 
-## Planning Tools
+### Planning Tools
 | Tool | Status |
 |------|--------|
 | [Github](https://github.com/) | AVAILABLE   |
@@ -37,7 +37,7 @@ We will be using the above tools to plan and develop software.
 
 Lets say you want to create a user registration form in your app. Your workflow might seem something like this.
 - Ask UX team in gitter/slack on how UI should look like
-- Open issue in frontend repo ( in github ), suggesting to add a page and have a chat about it ( in gitter )
+- Open issue in frontend repo ( in github ), suggesting to add a page and notify about it ( in gitter )
 - Open issue in backend repo ( in gitlab ), suggesting to add API endpoint
 
 So, lets start using microplan to get this plan published in those tools from command line.
@@ -62,7 +62,68 @@ $ microplan init filename.yml
 ```
 ![anim](https://cloud.githubusercontent.com/assets/4211715/20641521/e8e06b5a-b41f-11e6-8dc3-9674c4fa4ca6.gif)
 
+### configurations
+Open the file initialized with `microplan init` and lets create the configurations. configurations help microplan to denote the place to publish (Example: which repository should I create the issue in ? Which room should I plan the discussion in ?)
 
+```yml
+feature: create user registration
+description: "blah, blah ........" 
+
+configurations:
+  uxGitterChat:
+    type: gitter
+    url: "https://webhooks.gitter.im/e/xxxxxxxxxxxxxxxxxxx"
+  
+  frontendRepo:
+    type: github
+    slug: "microplan-xyz/www"
+    
+  backendRepo:
+    type: gitlab
+    slug: microplan-xyz/api"
+```
+
+### plans
+`plans` object will make use of configurations and helps you express your steps in plan
+
+```yml
+plans:
+  # Send message to UX team asking about the feature
+  - title: "How should the User registration page look ?"
+    description: "Should it have dark or light theme ? any specific font?"
+    in: uxGitterChat
+
+  # Create issue in frontend github repository
+  # And notifies the UX team in gitter
+  - title: "Choose frontend css framework for user registration page"
+    description: Should we go with bootstrap or spectre css ? Benchmarks and prototyping PRs could be sent.
+    in:
+      - frontendRepo
+      - uxGitterChat
+
+  # Create issue with big description in gitlab repository
+  - title: "Add user addition "
+    in: backendRepo
+    description: >
+      Add `user-routes.js` file and use express Router
+      ```javascript
+      var express = require('express')
+      var router = express.Router()
+
+      // GET /user
+      router.get('/user', function (req, res) {
+        // fetch from DB
+      })
+
+      router.post('/user', function (req, res) {
+        // save in DB
+      })
+
+      module.exports = router
+      ```
+```
+
+    
 
 ## How to use ?
 `microplan` can be used by developers/architects to plan work needed in multiple microservices, to implement one feature.
