@@ -29,7 +29,9 @@ module.exports = function (publishItem, gitterDone) {
       console.log(chunk.toString())
     })
     res.on('end', function () {
-      gitterDone()
+      gitterDone(null, {
+        messageDelivered: true
+      })
     })
   })
 
