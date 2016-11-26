@@ -85,40 +85,49 @@ rl.question(loginQuestion,
     )
 
     async.waterfall(
-      optQues,
-      function (err, auth) {
+      optQues.concat([
+        getExistingPublisherCredentials,
+        writePublisherCredentials
+      ]),
+      function (err) {
         if (err) {
           console.error(err)
           process.exit(1)
         }
 
-        var publisherCredentials
-        try {
-          var credFile = fs.readFileSync(path.join(homeDir(), credentialsLocation))
-          publisherCredentials = JSON.parse(credFile).publisherCredentials
-        } catch (er) {
-          // skip error, as .microplan file may not be there
-        }
-
-        publisherCredentials = _.isArray(publisherCredentials) ? publisherCredentials : []
-
-        fs.writeFile(
-          path.join(homeDir(), credentialsLocation),
-          JSON.stringify(
-            {
-              publisherCredentials: publisherCredentials.concat(auth)
-            }
-          ),
-          function (err) {
-            if (err) {
-              console.error(err)
-              process.exit(1)
-            }
-            console.log('The credentials was saved at ' + homeDir())
-            process.exit(0)
-          }
-        )
+        process.exit(0)
       }
     )
   }
 )
+
+function getExistingPublisherCredentials (newPublisherCreds, callback) {
+  var publisherCredentials
+  var credFileFullPath = path.join(homeDir(), credentialsLocation)
+  try {
+    var credFile = fs.readFileSync(credFileFullPath)
+    publisherCredentials = JSON.parse(credFile).publisherCredentials
+  } catch (er) {
+    // skip error, as .microplan file may not be there
+  }
+  var exitingPublisherCreds = _.isArray(publisherCredentials) ? publisherCredentials : []
+  return callback(null, credFileFullPath, exitingPublisherCreds, newPublisherCreds)
+}
+
+function writePublisherCredentials (credFileFullPath, exitingPublisherCreds, newPublisherCreds, callback) {
+  fs.writeFile(
+    credFileFullPath,
+    JSON.stringify(
+      {
+        publisherCredentials: exitingPublisherCreds.concat(newPublisherCreds)
+      }
+    ),
+    function (err) {
+      if (err) {
+        return callback(err)
+      }
+      console.log('The credentials was saved at ' + homeDir())
+      return callback()
+    }
+  )
+}
