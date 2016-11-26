@@ -132,8 +132,23 @@ $ microplan publish [filename]
 ```
 ![publish](https://cloud.githubusercontent.com/assets/4211715/20642219/225420f2-b42f-11e6-8966-153252c8c68a.gif)
 
+Thats it!
+
+Your UX team receives gitter notification
+
+![image](https://cloud.githubusercontent.com/assets/4211715/20642190/619ccb16-b42e-11e6-910e-976d54d0ec62.png)
+
+Issue for discussing about the change in frontend is created in github
+
+![image](https://cloud.githubusercontent.com/assets/4211715/20642304/e58924a8-b431-11e6-97c4-cbff3d21a89d.png)
+
+Issue for discussing backend is created in gitlab
+
+![image](https://cloud.githubusercontent.com/assets/4211715/20642197/7b463f84-b42e-11e6-88b6-06959a59d8f0.png)
+
 ### Input Formats
 Plan files could be written in various formats. Currently, only one is supported.
+
 | Format | Status |
 |--------|--------|
 | YAML   | AVAILABLE |
