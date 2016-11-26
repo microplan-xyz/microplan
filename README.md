@@ -37,15 +37,21 @@ We will be using the above tools to plan and develop software.
 
 Lets say you want to create a user registration form in your app. Your workflow might seem something like this.
 - Ask UX team in gitter/slack on how UI should look like
-- Open issue in frontend repo ( in github ), suggesting to add a page
+- Open issue in frontend repo ( in github ), suggesting to add a page and have a chat about it ( in gitter )
 - Open issue in backend repo ( in gitlab ), suggesting to add API endpoint
 
 So, lets start using microplan to get this plan published in those tools from command line.
 
 ### login
+Login stores your credentials in `.microplan` file in your HOME folder.
+- `token` for Github could be generated from [here](https://github.com/settings/tokens)
+- `token` for Gitlab could be generated from [here](https://gitlab.com/profile/personal_access_tokens)
+- gitter uses custom integration URL directly in the planning file. ( more details on this below )
 ```bash
 $ microplan login
 ```
+![anim](https://cloud.githubusercontent.com/assets/4211715/20641564/9cca34f2-b420-11e6-8155-8080fc33faa8.gif)
+
 
 ### init
 Initializes a file to start planning.
@@ -54,6 +60,8 @@ $ microplan init filename.yml
 
 # open filename.yml and start editing
 ```
+![anim](https://cloud.githubusercontent.com/assets/4211715/20641521/e8e06b5a-b41f-11e6-8dc3-9674c4fa4ca6.gif)
+
 
 
 ## How to use ?
