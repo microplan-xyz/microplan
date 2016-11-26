@@ -139,6 +139,7 @@ async.eachSeries(args,
 
         var publish = item.config.publisher.publish
         publish(item, function (err, result) {
+          delete item.creds
           if (err) {
             // console.error('Error while publishing ', '"' + item.plan.title + '"', 'in', item.in)
             publishState.failedItems.push({

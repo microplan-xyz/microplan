@@ -75,9 +75,9 @@ $ microplan publish feature-name.yml
 ## Planning Tools
 | Tool | Status |
 |------|--------|
-| [Gitter](https://gitter.im)   | AVAILABLE |
-| [Github](https://github.com/) | PLANNED   |
-| [Gitlab](https://gitlab.com/) | PLANNED   |
+| [Gitter](https://gitter.im)   | AVAILABLE   |
+| [Github](https://github.com/) | AVAILABLE   |
+| [Gitlab](https://gitlab.com/) | AVAILABLE   |
 
 ## Input Formats
 | Format | Status |
@@ -95,9 +95,7 @@ $ npm version minor # for new features
 $ npm version major # for deprecation
 ```
 
-`microplan` uses a automated publishing system. This means that, whenever your PR is merged, `microplan` will be published automatically to npm ( based on the version you gave in package.json ) 
+`microplan` uses a automated publishing system. This means that, whenever your PR is merged, `microplan` will be published automatically to npm ( based on the version you gave in package.json )
 
 ## Contributors
 [<img alt="argonlaser" src="https://avatars.githubusercontent.com/u/4816430?v=3&s=117" width="117">](https://github.com/argonlaser)[<img alt="scriptnull" src="https://avatars.githubusercontent.com/u/4211715?v=3&s=117" width="117">](https://github.com/scriptnull)[<img alt="killerveee" src="https://avatars.githubusercontent.com/u/18292587?v=3&s=117" width="117">](https://github.com/killerveee)
-
-
