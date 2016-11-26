@@ -4,6 +4,9 @@ var path = require('path')
 var parsers = require('./parsers/parsers.js')
 var publishers = require('./publishers/publishers.js')
 var _ = require('underscore')
+var homeDir = require('home-dir')
+var credentialsLocation = '.microplan'
+var fs = require('fs')
 
 program
   .parse(process.argv)
@@ -14,6 +17,16 @@ if (!args.length) {
   console.error('Filename required')
   process.exit(1)
 }
+
+var credFileFullPath = path.join(homeDir(), credentialsLocation)
+var publisherCredentials
+try {
+  var credFile = fs.readFileSync(credFileFullPath)
+  publisherCredentials = JSON.parse(credFile).publisherCredentials
+} catch (er) {
+  console.error('Please use `microplan login` command to login and start publishing')
+}
+var exitingPublisherCreds = _.isArray(publisherCredentials) ? publisherCredentials : []
 
 async.eachSeries(args,
   function (fileName, done) {
@@ -36,11 +49,13 @@ async.eachSeries(args,
           result.plans = p.plans.concat(c.plans)
         }
 
-        if (_.isEmpty(result.configuration))
+        if (_.isEmpty(result.configuration)) {
           result.configuration = {}
+        }
 
-        if (_.isEmpty(result.plans))
+        if (_.isEmpty(result.plans)) {
           result.plans = []
+        }
 
         return result
       },
@@ -70,7 +85,6 @@ async.eachSeries(args,
       return done('Error in configuration.')
     }
 
-
     var publishItems = []
     _.each(publishParams.plans,
       function (plan) {
@@ -91,6 +105,21 @@ async.eachSeries(args,
               }
             }
           )
+        )
+
+        publishItems = _.map(publishItems,
+          function (item) {
+            var availableCreds = _.filter(exitingPublisherCreds,
+              function (cred) {
+                return cred.type === item.config.type
+              }
+            )
+
+            // considering first object to be found with same type as
+            // default credentials for a publisher to publisher
+            item.creds = _.first(availableCreds)
+            return item
+          }
         )
       }
     )
