@@ -32,7 +32,9 @@ plans:
     description: >
                 Add `microplan-link.js` file.
                 Bootstrap the initial commit with below code
+                
                 ```javascript
+
                 var program = require('commander')
                 var fs = require('fs-extra')
                 var path = require('path')
@@ -50,4 +52,5 @@ plans:
                 commandArgs.forEach(function (arg) {
                   console.log('command executed: %s', arg)
                 })
+
                 ```
