@@ -56,20 +56,20 @@ $ microplan login
 ### init
 Initializes a file to start planning.
 ```bash
-$ microplan init filename.yml
+$ microplan init [filename]
 
 # open filename.yml and start editing
 ```
 ![anim](https://cloud.githubusercontent.com/assets/4211715/20641521/e8e06b5a-b41f-11e6-8dc3-9674c4fa4ca6.gif)
 
-### configurations
+### configuration
 Open the file initialized with `microplan init` and lets create the configurations. configurations help microplan to denote the place to publish (Example: which repository should I create the issue in ? Which room should I plan the discussion in ?)
 
 ```yml
 feature: create user registration
 description: "blah, blah ........" 
 
-configurations:
+configuration:
   uxGitterChat:
     type: gitter
     url: "https://webhooks.gitter.im/e/xxxxxxxxxxxxxxxxxxx"
@@ -97,6 +97,7 @@ plans:
   # And notifies the UX team in gitter
   - title: "Choose frontend css framework for user registration page"
     description: Should we go with bootstrap or spectre css ? Benchmarks and prototyping PRs could be sent.
+    assignee: scriptnull
     in:
       - frontendRepo
       - uxGitterChat
@@ -104,6 +105,7 @@ plans:
   # Create issue with big description in gitlab repository
   - title: "Add user addition "
     in: backendRepo
+    assignee: scriptnull
     description: >
       Add `user-routes.js` file and use express Router
       ```javascript
@@ -123,7 +125,30 @@ plans:
       ```
 ```
 
-## Input Formats
+## publish
+Once you finish writing the plan, you can use the publish command to create the issues in scm tools and send messages in messaging apps.
+```bash
+$ microplan publish [filename]
+```
+![publish](https://cloud.githubusercontent.com/assets/4211715/20642219/225420f2-b42f-11e6-8966-153252c8c68a.gif)
+
+Thats it!
+
+Your UX team receives gitter notification
+
+![image](https://cloud.githubusercontent.com/assets/4211715/20642190/619ccb16-b42e-11e6-910e-976d54d0ec62.png)
+
+Issue for discussing about the change in frontend is created in github
+
+![image](https://cloud.githubusercontent.com/assets/4211715/20642304/e58924a8-b431-11e6-97c4-cbff3d21a89d.png)
+
+Issue for discussing backend is created in gitlab
+
+![image](https://cloud.githubusercontent.com/assets/4211715/20642197/7b463f84-b42e-11e6-88b6-06959a59d8f0.png)
+
+### Input Formats
+Plan files could be written in various formats. Currently, only one is supported.
+
 | Format | Status |
 |--------|--------|
 | YAML   | AVAILABLE |
@@ -144,3 +169,9 @@ $ npm version major # for deprecation
 
 ## Contributors
 [<img alt="argonlaser" src="https://avatars.githubusercontent.com/u/4816430?v=3&s=117" width="117">](https://github.com/argonlaser)[<img alt="scriptnull" src="https://avatars.githubusercontent.com/u/4211715?v=3&s=117" width="117">](https://github.com/scriptnull)[<img alt="killerveee" src="https://avatars.githubusercontent.com/u/18292587?v=3&s=117" width="117">](https://github.com/killerveee)
+
+## Thanks 
+Thanks for taking your valuable time to check this project. We highly appreciate it •ᴗ•
+
+## License
+Ha ! you are free to hack on top of this. - [MIT License](https://github.com/microplan-xyz/microplan/blob/master/LICENSE)
