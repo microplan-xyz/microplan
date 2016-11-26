@@ -10,12 +10,10 @@ configuration:
     url: "https://webhooks.gitter.im/e/e2ec1e9d7235aed750d2"
   gitlabProduct:
     type: gitlab
-    namespace: argonlaser
-    project: gitlab-create-issue-test
+    slug: argonlaser/gitlab-create-issue-test
   githubProduct:
     type: github
-    username: argonlaser
-    repo: test
+    slug: argonlaser/test
 
 plans:
   - title: "Bootstrap angular.js"
