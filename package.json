@@ -5,7 +5,7 @@
   "main": "microplan.js",
   "scripts": {
     "start": "node microplan.js",
-    "test": "standard --fix"
+    "test": "standard"
   },
   "bin": {
     "microplan": "./microplan.js"

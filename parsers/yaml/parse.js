@@ -2,7 +2,7 @@ var yaml = require('js-yaml')
 var fs = require('fs')
 
 module.exports = function (filePath) {
-  var err;
+  var err
   try {
     var parsed = yaml.safeLoad(
       fs.readFileSync(
