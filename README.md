@@ -56,20 +56,20 @@ $ microplan login
 ### init
 Initializes a file to start planning.
 ```bash
-$ microplan init filename.yml
+$ microplan init [filename]
 
 # open filename.yml and start editing
 ```
 ![anim](https://cloud.githubusercontent.com/assets/4211715/20641521/e8e06b5a-b41f-11e6-8dc3-9674c4fa4ca6.gif)
 
-### configurations
+### configuration
 Open the file initialized with `microplan init` and lets create the configurations. configurations help microplan to denote the place to publish (Example: which repository should I create the issue in ? Which room should I plan the discussion in ?)
 
 ```yml
 feature: create user registration
 description: "blah, blah ........" 
 
-configurations:
+configuration:
   uxGitterChat:
     type: gitter
     url: "https://webhooks.gitter.im/e/xxxxxxxxxxxxxxxxxxx"
@@ -97,6 +97,7 @@ plans:
   # And notifies the UX team in gitter
   - title: "Choose frontend css framework for user registration page"
     description: Should we go with bootstrap or spectre css ? Benchmarks and prototyping PRs could be sent.
+    assignee: scriptnull
     in:
       - frontendRepo
       - uxGitterChat
@@ -104,6 +105,7 @@ plans:
   # Create issue with big description in gitlab repository
   - title: "Add user addition "
     in: backendRepo
+    assignee: scriptnull
     description: >
       Add `user-routes.js` file and use express Router
       ```javascript
@@ -123,7 +125,15 @@ plans:
       ```
 ```
 
-## Input Formats
+## publish
+Once you finish writing the plan, you can use the publish command to create the issues in scm tools and send messages in messaging apps.
+```bash
+$ microplan publish [filename]
+```
+![publish](https://cloud.githubusercontent.com/assets/4211715/20642219/225420f2-b42f-11e6-8966-153252c8c68a.gif)
+
+### Input Formats
+Plan files could be written in various formats. Currently, only one is supported.
 | Format | Status |
 |--------|--------|
 | YAML   | AVAILABLE |
