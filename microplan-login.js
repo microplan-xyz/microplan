@@ -30,13 +30,15 @@ var pubIndex = 0
 _.each(
   publishers,
   function (pub, pubKey) {
-    var count = pubIndex + 1
-    pubMap[count] = {
-      type: pubKey,
-      config: pub
+    if (pub.canLogin) {
+      var count = pubIndex + 1
+      pubMap[count] = {
+        type: pubKey,
+        config: pub
+      }
+      loginQuestion += util.format('\n\t%s. %s', count, pubKey)
+      pubIndex++
     }
-    loginQuestion += util.format('\n\t%s. %s', count, pubKey)
-    pubIndex++
   }
 )
 loginQuestion += '\nPlease choose publisher to login : '
