@@ -15,8 +15,6 @@ if (!args.length) {
   process.exit(1)
 }
 
-if (program.force) console.log('  force: install')
-
 async.eachSeries(args,
   function (fileName, done) {
     if (_.isEmpty(fileName)) {
