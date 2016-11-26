@@ -3,8 +3,6 @@ var url = require('url')
 var querystring = require('querystring')
 
 module.exports = function (publishItem, gitterDone) {
-//  console.log('Sending HTTPS request to gitter')
-
   var gitter = url.parse(publishItem.config.url)
 
   var postData = querystring.stringify({

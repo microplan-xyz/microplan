@@ -3,7 +3,9 @@ var _ = require('underscore')
 var parseSlug = require('../../utils/utils.js').parseSlug
 
 module.exports = function (publishItem, gitLabDone) {
-//  console.log('Sending HTTPS request to gitlab')
+  if (_.isEmpty(publishItem.creds)) {
+    return gitLabDone(new Error('Not logged in. Please use `microplan login`'))
+  }
   var parseSlugResult = parseSlug(publishItem.config.slug)
   var token = _.findWhere(publishItem.creds.loginOpts, {optName: 'token'}).answer
   if (_.isEmpty(token)) {
