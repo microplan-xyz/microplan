@@ -126,7 +126,7 @@ function writePublisherCredentials (credFileFullPath, exitingPublisherCreds, new
       if (err) {
         return callback(err)
       }
-      console.log('The credentials was saved at ' + homeDir())
+      console.log('The credentials was saved at ' + credFileFullPath)
       return callback()
     }
   )
