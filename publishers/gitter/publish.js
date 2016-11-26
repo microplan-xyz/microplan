@@ -27,7 +27,10 @@ module.exports = function (publishItem, gitterDone) {
       // console.log(chunk.toString())
     })
     res.on('end', function () {
-      gitterDone(null, {
+      if (res.statusCode > 399) {
+        return gitterDone(new Error('Status code with error' + res.statusCode))
+      }
+      return gitterDone(null, {
         messageDelivered: true
       })
     })
@@ -35,7 +38,7 @@ module.exports = function (publishItem, gitterDone) {
 
   req.on('error', function (e) {
     // console.error(e)
-    gitterDone(e)
+    return gitterDone(e)
   })
 
   // write data to request body
