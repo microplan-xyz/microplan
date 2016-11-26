@@ -25,7 +25,7 @@ $ npm install -g microplan
 
 We wanted to solve a little bit of of the "Planning" side of the equation. We wanted a tool, that comes very handy. It should be very handy, like the terminal we open. wait ! why not, inside a terminal ?
 
-## Planning Tools
+### Planning Tools
 | Tool | Status |
 |------|--------|
 | [Github](https://github.com/) | AVAILABLE   |
@@ -37,7 +37,7 @@ We will be using the above tools to plan and develop software.
 
 Lets say you want to create a user registration form in your app. Your workflow might seem something like this.
 - Ask UX team in gitter/slack on how UI should look like
-- Open issue in frontend repo ( in github ), suggesting to add a page and have a chat about it ( in gitter )
+- Open issue in frontend repo ( in github ), suggesting to add a page and notify about it ( in gitter )
 - Open issue in backend repo ( in gitlab ), suggesting to add API endpoint
 
 So, lets start using microplan to get this plan published in those tools from command line.
@@ -62,54 +62,65 @@ $ microplan init filename.yml
 ```
 ![anim](https://cloud.githubusercontent.com/assets/4211715/20641521/e8e06b5a-b41f-11e6-8dc3-9674c4fa4ca6.gif)
 
-
-
-## How to use ?
-`microplan` can be used by developers/architects to plan work needed in multiple microservices, to implement one feature.
-
-When you want to implement a new featurem you start by creating a feature file for it.
-```bash
-$ microplan init feature-name.yml
-
-# creates a file named feature-name
-```
-This will create a new file for you.
+### configurations
+Open the file initialized with `microplan init` and lets create the configurations. configurations help microplan to denote the place to publish (Example: which repository should I create the issue in ? Which room should I plan the discussion in ?)
 
 ```yml
-feature: "Add homepage"
-description: "Have nice pictures and bold fonts"
+feature: create user registration
+description: "blah, blah ........" 
 
-configuration:
-  gitterDEVChat:
+configurations:
+  uxGitterChat:
     type: gitter
-    url: "https://webhooks.gitter.im/e/devchatid"
-  gitterProductChat:
-    type: gitter
-    url: "https://webhooks.gitter.im/e/productchatid"
-
-plans:
-  - title: "Bootstrap angular.js"
-    description: "Write index.html as angular.js app"
-    in: gitterDEVChat
-
-  - title: "Team meeting about www service"
-    description: "speak about enhancing www"
-    in:
-      - gitterProductChat
-      - gitterDEVChat
-
+    url: "https://webhooks.gitter.im/e/xxxxxxxxxxxxxxxxxxx"
+  
+  frontendRepo:
+    type: github
+    slug: "microplan-xyz/www"
+    
+  backendRepo:
+    type: gitlab
+    slug: microplan-xyz/api"
 ```
-Its a base template, which you can use to plan things and publish the plan to different tools like github, gitlab and gitter.
-At the moment, we support only gitter and things are planned in our milestone.
 
-`configuration` object helps you to define configurations for various tools. ( Example, for gitter it will obviously have the secret webhook url, as shown in the above yml)
+### plans
+`plans` object will make use of configurations and helps you express your steps in plan
 
-`plans` is an array of items, which can be used to note down your plan in a step by step fashion and publish them. use the `in` property to express
+```yml
+plans:
+  # Send message to UX team asking about the feature
+  - title: "How should the User registration page look ?"
+    description: "Should it have dark or light theme ? any specific font?"
+    in: uxGitterChat
 
-After you complete your plan, it can be published by the following command.
+  # Create issue in frontend github repository
+  # And notifies the UX team in gitter
+  - title: "Choose frontend css framework for user registration page"
+    description: Should we go with bootstrap or spectre css ? Benchmarks and prototyping PRs could be sent.
+    in:
+      - frontendRepo
+      - uxGitterChat
 
-```bash
-$ microplan publish feature-name.yml
+  # Create issue with big description in gitlab repository
+  - title: "Add user addition "
+    in: backendRepo
+    description: >
+      Add `user-routes.js` file and use express Router
+      ```javascript
+      var express = require('express')
+      var router = express.Router()
+
+      // GET /user
+      router.get('/user', function (req, res) {
+        // fetch from DB
+      })
+
+      router.post('/user', function (req, res) {
+        // save in DB
+      })
+
+      module.exports = router
+      ```
 ```
 
 ## Input Formats
