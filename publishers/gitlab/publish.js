@@ -23,7 +23,11 @@ module.exports = function (publishItem, gitLabDone) {
       title: publishItem.plan.title,
       privateToken: token
     }
+
   var optPayload = publishItem.plan
+  if (!_.isEmpty(publishItem.plan.assignee)) {
+    optPayload.assignee_name = publishItem.plan.assignee
+  }
   createIssue(manPayload, optPayload, function (err, res) {
     if (err) {
       gitLabDone(err)
