@@ -23,6 +23,36 @@ $ npm install -g microplan
 
 We wanted to solve a little bit of of the "Planning" side of the equation. We wanted a tool, that comes very handy. It should be very handy, like the terminal we open. wait ! why not, inside a terminal ?
 
+## Planning Tools
+| Tool | Status |
+|------|--------|
+| [Github](https://github.com/) | AVAILABLE   |
+| [Gitlab](https://gitlab.com/) | AVAILABLE   |
+| [Gitter](https://gitter.im)   | AVAILABLE   |
+| [Slack](https://slack.com/)   | PLANNED     |
+
+We will be using the above tools to plan and develop software.
+
+Lets say you want to create a user registration form in your app. Your workflow might seem something like this.
+- Ask UX team in gitter/slack on how UI should look like
+- Open issue in frontend repo ( in github ), suggesting to add a page
+- Open issue in backend repo ( in gitlab ), suggesting to add API endpoint
+
+So, lets start using microplan to get this plan published in those tools from command line.
+
+### login
+```bash
+$ microplan login
+```
+
+### init
+Initializes a file to start planning.
+```bash
+$ microplan init filename.yml
+
+# open filename.yml and start editing
+```
+
 
 ## How to use ?
 `microplan` can be used by developers/architects to plan work needed in multiple microservices, to implement one feature.
@@ -72,17 +102,11 @@ After you complete your plan, it can be published by the following command.
 $ microplan publish feature-name.yml
 ```
 
-## Planning Tools
-| Tool | Status |
-|------|--------|
-| [Gitter](https://gitter.im)   | AVAILABLE   |
-| [Github](https://github.com/) | AVAILABLE   |
-| [Gitlab](https://gitlab.com/) | AVAILABLE   |
-
 ## Input Formats
 | Format | Status |
 |--------|--------|
 | YAML   | AVAILABLE |
+| JSON   | PLANNED   |
 | TOML   | PLANNED   |
 
 ## Contributing
