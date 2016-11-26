@@ -7,6 +7,8 @@ var _ = require('underscore')
 var homeDir = require('home-dir')
 var credentialsLocation = '.microplan'
 var fs = require('fs')
+var ora = require('ora')
+var util = require('util')
 
 program
   .parse(process.argv)
@@ -131,24 +133,28 @@ async.eachSeries(args,
 
     async.eachLimit(publishItems, 10,
       function (item, nextPublish) {
-        console.log('Publishing ', '"' + item.plan.title + '"', 'in', item.in)
-        var publish = item.config.publisher.publish
+        var spinner = ora(
+          util.format('%s :: %s', item.in, item.plan.title)
+        ).start()
 
+        var publish = item.config.publisher.publish
         publish(item, function (err, result) {
           if (err) {
-            console.error('Error while publishing ', '"' + item.plan.title + '"', 'in', item.in)
+            // console.error('Error while publishing ', '"' + item.plan.title + '"', 'in', item.in)
             publishState.failedItems.push({
               error: err,
               publishItem: item
             })
+            spinner.fail()
             return nextPublish()
           }
 
-          console.log('Published ', '"' + item.plan.title + '"', 'in', item.in)
+          // console.log('Published ', '"' + item.plan.title + '"', 'in', item.in)
           publishState.succeededItems.push({
             result: result,
             publishItem: item
           })
+          spinner.succeed()
           return nextPublish()
         })
       },
@@ -165,10 +171,10 @@ async.eachSeries(args,
   },
   function (err) {
     if (err) {
-      console.error('Error while publishing plan')
+      // console.error('Error while publishing plan')
       console.error(err)
     } else {
-      console.log('Plans published')
+      // console.log('Plans published')
     }
   }
 )

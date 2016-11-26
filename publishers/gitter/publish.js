@@ -3,8 +3,6 @@ var url = require('url')
 var querystring = require('querystring')
 
 module.exports = function (publishItem, gitterDone) {
-//  console.log('Sending HTTPS request to gitter')
-
   var gitter = url.parse(publishItem.config.url)
 
   var postData = querystring.stringify({
@@ -26,7 +24,7 @@ module.exports = function (publishItem, gitterDone) {
   var req = https.request(options, (res) => {
     res.setEncoding('utf8')
     res.on('data', function (chunk) {
-  //    console.log(chunk.toString())
+      // console.log(chunk.toString())
     })
     res.on('end', function () {
       gitterDone(null, {
