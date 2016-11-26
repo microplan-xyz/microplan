@@ -3,7 +3,7 @@ var createIssue = require('github-create-issue')
 var parseSlug = require('../../utils/utils.js').parseSlug
 
 module.exports = function (publishItem, githubDone) {
-  console.log('Sending HTTPS request to github')
+//  console.log('Sending HTTPS request to github')
   var projectSlug = publishItem.config.slug
   var title = publishItem.plan.title
   var optPayload = publishItem.plan
