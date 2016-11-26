@@ -19,7 +19,7 @@ module.exports = function (publishItem, githubDone) {
     if (err) {
       githubDone(err)
     } else {
-      githubDone()
+      githubDone(null, res)
     }
   })
 }

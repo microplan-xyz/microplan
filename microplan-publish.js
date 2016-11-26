@@ -28,6 +28,11 @@ try {
 }
 var exitingPublisherCreds = _.isArray(publisherCredentials) ? publisherCredentials : []
 
+var publishState = {
+  succeededItems: [],
+  failedItems: []
+}
+
 async.eachSeries(args,
   function (fileName, done) {
     if (_.isEmpty(fileName)) {
@@ -35,7 +40,7 @@ async.eachSeries(args,
     }
 
     var parsed = parsers.parseFile(
-      path.join(__dirname, fileName)
+      path.join(process.cwd(), fileName)
     )
     var publishParams = _.reduce(
       parsed,
@@ -129,21 +134,32 @@ async.eachSeries(args,
         console.log('Publishing ', '"' + item.plan.title + '"', 'in', item.in)
         var publish = item.config.publisher.publish
 
-        publish(item, function (err) {
+        publish(item, function (err, result) {
           if (err) {
             console.error('Error while publishing ', '"' + item.plan.title + '"', 'in', item.in)
-            return nextPublish({
+            publishState.failedItems.push({
               error: err,
               publishItem: item
             })
+            return nextPublish()
           }
 
           console.log('Published ', '"' + item.plan.title + '"', 'in', item.in)
+          publishState.succeededItems.push({
+            result: result,
+            publishItem: item
+          })
           return nextPublish()
         })
       },
-      function (err) {
-        return done(err)
+      function () {
+        try {
+          var stateFilePath = path.join(process.cwd(), fileName + '.state.json')
+          fs.writeFileSync(stateFilePath, JSON.stringify(publishState))
+          return done()
+        } catch (err) {
+          return done(err)
+        }
       }
     )
   },

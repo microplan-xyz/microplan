@@ -21,7 +21,7 @@ module.exports = function (publishItem, gitLabDone) {
     if (err) {
       gitLabDone(err)
     } else {
-      gitLabDone()
+      gitLabDone(null, res)
     }
   })
 }
