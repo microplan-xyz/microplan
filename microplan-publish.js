@@ -24,7 +24,6 @@ async.eachSeries(args,
     var parsed = parsers.parseFile(
       path.join(__dirname, fileName)
     )
-
     var publishParams = _.reduce(
       parsed,
       function (p, c) {
