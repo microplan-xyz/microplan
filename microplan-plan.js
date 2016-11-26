@@ -13,7 +13,6 @@ if (!planArgs.length) {
   process.exit(1)
 }
 
-if (program.force) console.log('  force: install')
 planArgs.forEach(function (planArg) {
   // Get document, or throw exception on error
   try {

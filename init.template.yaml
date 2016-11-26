@@ -8,6 +8,10 @@ configuration:
   gitterProductChat:
     type: gitter
     url: "https://webhooks.gitter.im/e/e2ec1e9d7235aed750d2"
+  gitlabProduct:
+    type: gitlab
+    namespace: argonlaser
+    project: gitlab-create-issue-test
 
 plans:
   - title: "Bootstrap angular.js"
@@ -19,3 +23,7 @@ plans:
     in:
       - gitterProductChat
       - gitterDEVChat
+  - title: "Demo publish from microplan"
+    description: "Publish microplan"
+    in:
+      - gitlabProduct
