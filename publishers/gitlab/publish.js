@@ -3,7 +3,7 @@ var _ = require('underscore')
 
 module.exports = function (publishItem, gitLabDone) {
   if (_.isEmpty(publishItem.config.namespace) || _.isEmpty(publishItem.config.project) ||
-                  _.isEmpty(publishItem.plan.title) || _.isEmpty(publishItem.privateToken)) {
+                  _.isEmpty(publishItem.plan.title) || _.isEmpty(publishItem.token)) {
     gitLabDone(new Error('namespace, project, title, token mandatory'))
     return
   }
@@ -13,7 +13,7 @@ module.exports = function (publishItem, gitLabDone) {
       namespace: publishItem.config.namespace,
       project: publishItem.config.project,
       title: publishItem.plan.title,
-      privateToken: publishItem.privateToken
+      privateToken: publishItem.token
     }
   var optPayload = publishItem.plan
 

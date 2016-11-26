@@ -12,6 +12,10 @@ configuration:
     type: gitlab
     namespace: argonlaser
     project: gitlab-create-issue-test
+  githubProduct:
+    type: github
+    username: argonlaser
+    repo: test
 
 plans:
   - title: "Bootstrap angular.js"
@@ -23,7 +27,13 @@ plans:
     in:
       - gitterProductChat
       - gitterDEVChat
+
   - title: "Demo publish from microplan"
     description: "Publish microplan"
     in:
       - gitlabProduct
+
+  - title: "Demo publish from microplan"
+    description: "Publish microplan"
+    in:
+      - githubProduct
