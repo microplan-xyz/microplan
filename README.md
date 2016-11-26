@@ -67,17 +67,17 @@ Open the file initialized with `microplan init` and lets create the configuratio
 
 ```yml
 feature: create user registration
-description: "blah, blah ........" 
+description: "blah, blah ........"
 
 configuration:
   uxGitterChat:
     type: gitter
     url: "https://webhooks.gitter.im/e/xxxxxxxxxxxxxxxxxxx"
-  
+
   frontendRepo:
     type: github
     slug: "microplan-xyz/www"
-    
+
   backendRepo:
     type: gitlab
     slug: microplan-xyz/api"
@@ -170,8 +170,5 @@ $ npm version major # for deprecation
 ## Contributors
 [<img alt="argonlaser" src="https://avatars.githubusercontent.com/u/4816430?v=3&s=117" width="117">](https://github.com/argonlaser)[<img alt="scriptnull" src="https://avatars.githubusercontent.com/u/4211715?v=3&s=117" width="117">](https://github.com/scriptnull)[<img alt="killerveee" src="https://avatars.githubusercontent.com/u/18292587?v=3&s=117" width="117">](https://github.com/killerveee)
 
-## Thanks 
+## Thanks
 Thanks for taking your valuable time to check this project. We highly appreciate it •ᴗ•
-
-## License
-Ha ! you are free to hack on top of this. - [MIT License](https://github.com/microplan-xyz/microplan/blob/master/LICENSE)
