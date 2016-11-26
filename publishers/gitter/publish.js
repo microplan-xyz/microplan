@@ -26,7 +26,7 @@ module.exports = function (publishItem, gitterDone) {
   var req = https.request(options, (res) => {
     res.setEncoding('utf8')
     res.on('data', function (chunk) {
-  //    console.log(chunk.toString())
+      // console.log(chunk.toString())
     })
     res.on('end', function () {
       gitterDone(null, {
