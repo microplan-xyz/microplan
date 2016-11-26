@@ -27,6 +27,7 @@ try {
   publisherCredentials = JSON.parse(credFile).publisherCredentials
 } catch (er) {
   console.error('Please use `microplan login` command to login and start publishing')
+  process.exit(1)
 }
 var exitingPublisherCreds = _.isArray(publisherCredentials) ? publisherCredentials : []
 
