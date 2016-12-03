@@ -10,173 +10,227 @@ var fs = require('fs')
 var ora = require('ora')
 var util = require('util')
 
-program
-  .parse(process.argv)
-
-var args = program.args
-
-if (!args.length) {
-  console.error('Filename required')
-  process.exit(1)
-}
-
-var credFileFullPath = path.join(homeDir(), credentialsLocation)
-var publisherCredentials
-try {
-  var credFile = fs.readFileSync(credFileFullPath)
-  publisherCredentials = JSON.parse(credFile).publisherCredentials
-} catch (er) {
-  console.error('Please use `microplan login` command to login and start publishing')
-  process.exit(1)
-}
-var exitingPublisherCreds = _.isArray(publisherCredentials) ? publisherCredentials : []
-
-var publishState = {
-  succeededItems: [],
-  failedItems: []
-}
-
-async.eachSeries(args,
-  function (fileName, done) {
-    if (_.isEmpty(fileName)) {
-      console.error('FileName is empty')
-    }
-
-    var parsed = parsers.parseFile(
-      path.join(process.cwd(), fileName)
-    )
-    var publishParams = _.reduce(
-      parsed,
-      function (p, c) {
-        var result = {}
-        if (_.isObject(c.configuration) && !_.isArray(c.configuration)) {
-          result.configuration = _.extend(p.configuration, c.configuration)
-        }
-
-        if (_.isArray(c.plans)) {
-          result.plans = p.plans.concat(c.plans)
-        }
-
-        if (_.isEmpty(result.configuration)) {
-          result.configuration = {}
-        }
-
-        if (_.isEmpty(result.plans)) {
-          result.plans = []
-        }
-
-        return result
-      },
-      {
-        configuration: {},
-        plans: []
-      }
-    )
-
-    var errorInConfig = false
-    _.each(publishParams.configuration,
-      function (config) {
-        if (_.isEmpty(config.type)) {
-          console.error('Missing type for configuration: ', config)
-          errorInConfig = true
-        } else {
-          config.publisher = publishers[config.type]
-          if (_.isEmpty(config.publisher)) {
-            console.error('Publisher not found for configuration: ', config)
-            errorInConfig = true
-          }
-        }
-      }
-    )
-
-    if (errorInConfig) {
-      return done('Error in configuration.')
-    }
-
-    var publishItems = []
-    _.each(publishParams.plans,
-      function (plan) {
-        var inArr = []
-        if (_.isString(plan.in)) {
-          inArr = [plan.in]
-        } else if (_.isArray(plan.in)) {
-          inArr = plan.in
-        }
-
-        publishItems = publishItems.concat(
-          _.map(inArr,
-            function (inConfigName) {
-              return {
-                in: inConfigName,
-                plan: plan,
-                config: publishParams.configuration[inConfigName]
-              }
-            }
-          )
-        )
-
-        publishItems = _.map(publishItems,
-          function (item) {
-            var availableCreds = _.filter(exitingPublisherCreds,
-              function (cred) {
-                return cred.type === item.config.type
-              }
-            )
-
-            // considering first object to be found with same type as
-            // default credentials for a publisher to publisher
-            item.creds = _.first(availableCreds)
-            return item
-          }
-        )
-      }
-    )
-
-    async.eachLimit(publishItems, 10,
-      function (item, nextPublish) {
-        var spinner = ora(
-          util.format('%s :: %s', item.in, item.plan.title)
-        ).start()
-
-        var publish = item.config.publisher.publish
-        publish(item, function (err, result) {
-          delete item.creds
-          if (err) {
-            // console.error('Error while publishing ', '"' + item.plan.title + '"', 'in', item.in)
-            publishState.failedItems.push({
-              error: err,
-              publishItem: item
-            })
-            spinner.fail()
-            return nextPublish()
-          }
-
-          // console.log('Published ', '"' + item.plan.title + '"', 'in', item.in)
-          publishState.succeededItems.push({
-            result: result,
-            publishItem: item
-          })
-          spinner.succeed()
-          return nextPublish()
-        })
-      },
-      function () {
-        try {
-          var stateFilePath = path.join(process.cwd(), fileName + '.state.json')
-          fs.writeFileSync(stateFilePath, JSON.stringify(publishState))
-          return done()
-        } catch (err) {
-          return done(err)
-        }
-      }
-    )
-  },
-  function (err) {
+async.waterfall(
+  [
+    checkForCredentials,
+    parseProgramArgs,
+    parseFileToBePublished,
+    validateConfiguration,
+    validatePlans,
+    generatePublishItems,
+    injectCredentials,
+    publishPlans,
+    writeStateFile
+  ],
+  function (err, result) {
     if (err) {
-      // console.error('Error while publishing plan')
       console.error(err)
-    } else {
-      // console.log('Plans published')
+      process.exit(1)
     }
+
+    process.exit(0)
   }
 )
+
+function checkForCredentials (callback) {
+  var credFileFullPath = path.join(homeDir(), credentialsLocation)
+  var publisherCredentials
+  try {
+    var credFile = fs.readFileSync(credFileFullPath)
+    publisherCredentials = JSON.parse(credFile).publisherCredentials
+  } catch (er) {
+    return callback(new Error(
+      'Please use `microplan login` command to login and start publishing'))
+  }
+  publisherCredentials =
+    _.isArray(publisherCredentials) ? publisherCredentials : []
+
+  return callback(null, publisherCredentials)
+}
+
+function parseProgramArgs (publisherCredentials, callback) {
+  program
+    .parse(process.argv)
+
+  var args = program.args
+
+  if (!args.length) {
+    return callback(new Error('Filename required'))
+  }
+
+  var fileNameToBePublished = args[0]
+
+  return callback(null, publisherCredentials, fileNameToBePublished)
+}
+
+function parseFileToBePublished (publisherCredentials, fileNameToBePublished,
+  callback) {
+  if (_.isEmpty(fileNameToBePublished)) {
+    return callback(new Error('FileName is empty'))
+  }
+
+  var parsedPublishFileOutputs = parsers.parseFile(
+    path.join(process.cwd(), fileNameToBePublished)
+  )
+
+  var parsedPublishFile = _.first(parsedPublishFileOutputs)
+
+  return callback(null, publisherCredentials, fileNameToBePublished,
+    parsedPublishFile)
+}
+
+function validateConfiguration (publisherCredentials, fileNameToBePublished,
+  parsedPublishFile, callback) {
+  if (!_.isObject(parsedPublishFile.configuration) ||
+    _.isArray(parsedPublishFile.configuration)) {
+    return callback(new Error('Configuration should be an object with ' +
+      'unique configuration identifiers'))
+  }
+
+  var errorsInConfig = []
+  _.each(parsedPublishFile.configuration,
+    function (config) {
+      // check type
+      if (_.isEmpty(config.type)) {
+        errorsInConfig.push('Missing type for configuration:' +
+          config)
+        return
+      }
+
+      // check if valid publisher exists for given yml type
+      config.publisher = publishers[config.type]
+      if (_.isEmpty(config.publisher)) {
+        errorsInConfig.push('Publisher not found for configuration:' +
+          config)
+      }
+    }
+  )
+
+  if (!_.isEmpty(errorsInConfig)) {
+    return callback(new Error('Invalid configuration ' +
+      errorsInConfig.join()))
+  }
+
+  return callback(null, publisherCredentials, fileNameToBePublished,
+    parsedPublishFile)
+}
+
+function validatePlans (publisherCredentials, fileNameToBePublished,
+  parsedPublishFile, callback) {
+  if (!_.isArray(parsedPublishFile.plans)) {
+    return callback(new Error('plans should be an array with ' +
+      'title, description and in elements'))
+  }
+
+  // Do more validation if needed.
+
+  return callback(null, publisherCredentials, fileNameToBePublished,
+    parsedPublishFile)
+}
+
+function generatePublishItems (publisherCredentials, fileNameToBePublished,
+  parsedPublishFile, callback) {
+  // publishItems are building blocks of a publish operation
+  // goal of it to produce individual, self contained object, which contains
+  // all the information (payload, credentials etc.) needed for publishing an item
+  var publishItems = []
+
+  _.each(parsedPublishFile.plans,
+    function (plan) {
+      var inArr = []
+      if (_.isString(plan.in)) {
+        inArr = [plan.in]
+      } else if (_.isArray(plan.in)) {
+        inArr = plan.in
+      }
+
+      publishItems = publishItems.concat(
+        _.map(inArr,
+          function (inConfigName) {
+            return {
+              in: inConfigName,
+              plan: plan,
+              config: parsedPublishFile.configuration[inConfigName]
+            }
+          }
+        )
+      )
+    }
+  )
+
+  return callback(null, publisherCredentials, fileNameToBePublished,
+    parsedPublishFile, publishItems)
+}
+
+function injectCredentials (publisherCredentials, fileNameToBePublished,
+  parsedPublishFile, publishItems, callback) {
+  publishItems = _.map(publishItems,
+    function (item) {
+      var availableCreds = _.filter(publisherCredentials,
+        function (cred) {
+          return cred.type === item.config.type
+        }
+      )
+
+      // considering first object to be found with same type as
+      // default credentials for a publisher to publisher
+      item.creds = _.first(availableCreds)
+      return item
+    }
+  )
+
+  return callback(null, fileNameToBePublished, publishItems)
+}
+
+function publishPlans (fileNameToBePublished, publishItems, callback) {
+  var publishState = {
+    succeededItems: [],
+    failedItems: []
+  }
+
+  async.eachLimit(publishItems, 10,
+    function (item, nextPublish) {
+      var spinner = ora(
+        util.format('%s :: %s', item.in, item.plan.title)
+      ).start()
+
+      var publish = item.config.publisher.publish
+
+      publish(item, function (err, result) {
+        // credentials should not be stored in the state file
+        delete item.creds
+
+        if (err) {
+          publishState.failedItems.push({
+            error: err,
+            publishItem: item
+          })
+          spinner.fail()
+          return nextPublish()
+        }
+
+        publishState.succeededItems.push({
+          result: result,
+          publishItem: item
+        })
+        spinner.succeed()
+        return nextPublish()
+      })
+    },
+    function () {
+      return callback(null, fileNameToBePublished, publishState)
+    }
+  )
+}
+
+function writeStateFile (fileNameToBePublished, publishState, callback) {
+  try {
+    var stateFilePath = path.join(process.cwd(),
+      fileNameToBePublished + '.state.json')
+    fs.writeFileSync(stateFilePath, JSON.stringify(publishState))
+    return callback(null)
+  } catch (err) {
+    return callback(new Error('Unable to save state file for ' +
+      fileNameToBePublished + ' - ' + err))
+  }
+}
