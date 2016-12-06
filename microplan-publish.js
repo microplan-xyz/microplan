@@ -19,6 +19,7 @@ async.waterfall(
     validatePlans,
     generatePublishItems,
     injectCredentials,
+    determinePublishMethod,
     publishPlans,
     writeStateFile
   ],
@@ -50,6 +51,8 @@ function checkForCredentials (callback) {
 
 function parseProgramArgs (publisherCredentials, callback) {
   program
+    .option('-s, --serial', 'Publish plans serially')
+    .option('-p, --parallel', 'Publish plans parallely')
     .parse(process.argv)
 
   var args = program.args
@@ -182,13 +185,26 @@ function injectCredentials (publisherCredentials, fileNameToBePublished,
   return callback(null, fileNameToBePublished, publishItems)
 }
 
-function publishPlans (fileNameToBePublished, publishItems, callback) {
+function determinePublishMethod (fileNameToBePublished, publishItems,
+  callback) {
+  // default publish method is serial
+  var publishMethod = async.eachSeries.bind(null, publishItems)
+
+  if (program.parallel === true) {
+    publishMethod = async.eachLimit.bind(null, publishItems, 10)
+  }
+
+  return callback(null, fileNameToBePublished, publishItems, publishMethod)
+}
+
+function publishPlans (fileNameToBePublished, publishItems, publishMethod,
+  callback) {
   var publishState = {
     succeededItems: [],
     failedItems: []
   }
 
-  async.eachLimit(publishItems, 10,
+  publishMethod(
     function (item, nextPublish) {
       var spinner = ora(
         util.format('%s :: %s', item.in, item.plan.title)
