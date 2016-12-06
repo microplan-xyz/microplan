@@ -129,6 +129,15 @@ plans:
 Once you finish writing the plan, you can use the publish command to create the issues in scm tools and send messages in messaging apps.
 ```bash
 $ microplan publish [filename]
+
+$ microplan publish -h
+  Usage: microplan-publish [options]
+
+  Options:
+
+    -h, --help      output usage information
+    -s, --serial    Publish plans serially
+    -p, --parallel  Publish plans parallely
 ```
 ![publish](https://cloud.githubusercontent.com/assets/4211715/20642219/225420f2-b42f-11e6-8966-153252c8c68a.gif)
 
