@@ -1,6 +1,6 @@
 {
   "name": "microplan",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Plan your project from command line",
   "main": "microplan.js",
   "scripts": {
