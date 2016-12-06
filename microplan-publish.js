@@ -12,8 +12,8 @@ var util = require('util')
 
 async.waterfall(
   [
-    checkForCredentials,
     parseProgramArgs,
+    checkForCredentials,
     parseFileToBePublished,
     validateConfiguration,
     validatePlans,
@@ -33,23 +33,7 @@ async.waterfall(
   }
 )
 
-function checkForCredentials (callback) {
-  var credFileFullPath = path.join(homeDir(), credentialsLocation)
-  var publisherCredentials
-  try {
-    var credFile = fs.readFileSync(credFileFullPath)
-    publisherCredentials = JSON.parse(credFile).publisherCredentials
-  } catch (er) {
-    return callback(new Error(
-      'Please use `microplan login` command to login and start publishing'))
-  }
-  publisherCredentials =
-    _.isArray(publisherCredentials) ? publisherCredentials : []
-
-  return callback(null, publisherCredentials)
-}
-
-function parseProgramArgs (publisherCredentials, callback) {
+function parseProgramArgs (callback) {
   program
     .option('-s, --serial', 'Publish plans serially')
     .option('-p, --parallel', 'Publish plans parallely')
@@ -62,6 +46,22 @@ function parseProgramArgs (publisherCredentials, callback) {
   }
 
   var fileNameToBePublished = args[0]
+
+  return callback(null, fileNameToBePublished)
+}
+
+function checkForCredentials (fileNameToBePublished, callback) {
+  var credFileFullPath = path.join(homeDir(), credentialsLocation)
+  var publisherCredentials
+  try {
+    var credFile = fs.readFileSync(credFileFullPath)
+    publisherCredentials = JSON.parse(credFile).publisherCredentials
+  } catch (er) {
+    return callback(new Error(
+      'Please use `microplan login` command to login and start publishing'))
+  }
+  publisherCredentials =
+    _.isArray(publisherCredentials) ? publisherCredentials : []
 
   return callback(null, publisherCredentials, fileNameToBePublished)
 }
@@ -77,6 +77,10 @@ function parseFileToBePublished (publisherCredentials, fileNameToBePublished,
   )
 
   var parsedPublishFile = _.first(parsedPublishFileOutputs)
+
+  if (_.isEmpty(parsedPublishFile)) {
+    return callback(new Error('Unable to parse input file.'))
+  }
 
   return callback(null, publisherCredentials, fileNameToBePublished,
     parsedPublishFile)
