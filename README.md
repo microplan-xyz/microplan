@@ -10,6 +10,7 @@
 
 [![Run Status](https://api.shippable.com/projects/58287b8f8279be1000fa7edc/badge?branch=master)](https://app.shippable.com/projects/58287b8f8279be1000fa7edc)
 [![npm version](https://badge.fury.io/js/microplan.svg)](https://badge.fury.io/js/microplan)
+[![npm](https://img.shields.io/npm/dm/microplan.svg)](https://www.npmjs.com/package/microplan)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/microplan-xyz/microplan/blob/master/LICENSE)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/microplan-xyz/Lobby)
 ## Install
