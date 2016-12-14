@@ -17,6 +17,9 @@ plans:
   - title: "Bootstrap CLI"
     description: "Do `npm init` and use commander.js to build the CLI"
     in: githubCli
+    assignees:
+      - scriptnull
+      - argonlaser
 
   # Create issue in private gitlab repository
   # Sends activity notification in gitter
@@ -25,6 +28,7 @@ plans:
     in:
       - gitlabBackend
       - gitterDevChat
+    assignee: "argonlaser" # Currently gitlab API supports only one assignee
 
   # Create issue with big description in github repository
   - title: "Add microplan link command"
@@ -32,7 +36,7 @@ plans:
     description: >
                 Add `microplan-link.js` file.
                 Bootstrap the initial commit with below code
-                
+
                 ```javascript
 
                 var program = require('commander')
