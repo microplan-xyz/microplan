@@ -1,6 +1,6 @@
 <h1 align="center">
 	<br>
-	<img width="400" src="https://raw.githubusercontent.com/microplan-xyz/microplan/master/logo_black.png" alt="microplan">
+	<img width="400" src="https://raw.githubusercontent.com/microplan-xyz/microplan/master/images/logo_black.png" alt="microplan">
 	<br>
 	<br>
 	<br>
