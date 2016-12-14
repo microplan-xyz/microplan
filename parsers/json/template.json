@@ -1,0 +1,46 @@
+{
+    "feature":"Microplan",
+    "description":"Bootstrap microplan ",
+    "configuration":{
+        "gitterDevChat":{
+            "type":"gitter",
+            "url":"https://webhooks.gitter.im/e/xxxxxxxxxxxxxxxxxxx"
+        },
+        "gitlabBackend":{
+            "type":"gitlab",
+            "slug":"microplan-xyz/product"
+        },
+        "githubCli":{
+            "type":"github",
+            "slug":"argonlaser/test"
+        }
+    },
+    "plans":[
+        {
+            "title":"Bootstrap CLI",
+            "description":"Do `npm init` and use commander.js to build the CLI",
+            "in":"githubCli",
+            "assignees":[
+                "argonlaser",
+                "scriptnull"
+            ]
+        },
+        {
+            "title":"Discussion on backend framework",
+            "description":"We are confused between using express.js and hapi. So lets discuss about it with benchmarks.",
+            "in":[
+                "gitlabBackend",
+                "gitterDevChat"
+            ],
+            "assignees":[
+                "argonlaser",
+                "scriptnull"
+            ]
+        },
+        {
+            "title":"Add microplan link command",
+            "in":"githubCli",
+            "description":"Add `microplan-link.js` file. Bootstrap the initial commit with below code\n```javascript\nvar program = require(\"commander\") var fs = require(\"fs-extra\") var path = require(\"path\")\nprogram\n  .parse(process.argv)\n\nvar commandArgs = program.args\nif (commandArgs.length > 1) {\n  console.error(\"argument required\")\n  process.exit(1)\n}\ncommandArgs.forEach(function (arg) {\n  console.log(\"command executed: %s\", arg)\n})\n```\n"
+        }
+    ]
+}

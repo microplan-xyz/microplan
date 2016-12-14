@@ -10,6 +10,9 @@ module.exports = function (filePath) {
         'utf8'
         )
       )
+      console.log(parsed)
+      console.log('---------------------')
+      console.log()
   } catch (e) {
     err = e
   }
