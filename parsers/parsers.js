@@ -6,6 +6,11 @@ module.exports = (function () {
       name: 'yaml',
       parse: require('./yaml/parse.js'),
       extensions: ['yml', 'yaml']
+    },
+    {
+      name: 'json',
+      parse: require('./json/parse.js'),
+      extensions: ['json', 'JSON']
     }
   ]
 
