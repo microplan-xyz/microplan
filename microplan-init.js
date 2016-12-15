@@ -6,7 +6,7 @@ var templateFileLocation = {
   'json': 'parsers/json/template.json'
 }
 
-var _copyTemplateToPath = function(templateFilePath, destFilePath) {
+var _copyTemplateToPath = function (templateFilePath, destFilePath) {
   initArgs.forEach(function (initArg) {
     try {
       fs.copySync(path.join(__dirname, templateFilePath), destFilePath)
