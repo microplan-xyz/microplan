@@ -162,7 +162,7 @@ Plan files could be written in various formats. Currently, only one is supported
 | Format | Status |
 |--------|--------|
 | YAML   | AVAILABLE |
-| JSON   | PLANNED   |
+| JSON   | AVAILABLE |
 | TOML   | PLANNED   |
 
 ## Contributing
