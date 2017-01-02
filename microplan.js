@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 var program = require('commander')
 
+var packageJson = require('./package.json')
+
 program
-  .version('0.0.1')
+  .version(packageJson.version)
   .command('init [filename]', 'initialise file with template')
   .command('publish [filename]', 'publish the microservice')
   .command('login', 'login and save the credentials')
