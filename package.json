@@ -8,7 +8,8 @@
     "test": "standard"
   },
   "bin": {
-    "microplan": "./microplan.js"
+    "microplan": "./microplan.js",
+    "mp": "./microplan.js"
   },
   "repository": {
     "type": "git",
