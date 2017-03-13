@@ -181,12 +181,12 @@ $ microplan publish -h
 
 ### Input Formats
 
-The configuration file can be written in various formats. At this point, we only support `yml`. We plan to add JSON and TOML soon.
+The configuration file can be written in various formats. We plan to add TOML soon.
 
 | Format | Status |
 |--------|--------|
 | YAML   | AVAILABLE |
-| JSON   | PLANNED   |
+| JSON   | AVAILABLE |
 | TOML   | PLANNED   |
 
 
