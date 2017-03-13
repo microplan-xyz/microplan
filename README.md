@@ -203,8 +203,5 @@ $ npm version major # for deprecation
 
 **Important:** `microplan` uses an automated publishing system. That means whenever your PR is merged, `microplan` will be published automatically to npm (based on the version specified in the package.json)
 
-## Contributors
-[<img alt="argonlaser" src="https://avatars.githubusercontent.com/u/4816430?v=3&s=117" width="117">](https://github.com/argonlaser)[<img alt="scriptnull" src="https://avatars.githubusercontent.com/u/4211715?v=3&s=117" width="117">](https://github.com/scriptnull)[<img alt="killerveee" src="https://avatars.githubusercontent.com/u/18292587?v=3&s=117" width="117">](https://github.com/killerveee)
-
 ## Thanks a lot!
 Thanks for checking out the project. We appreciate it! •ᴗ•
