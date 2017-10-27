@@ -7,9 +7,16 @@ var templateFileLocation = {
 }
 
 var _copyTemplateToPath = function (templateFilePath, destFilePath) {
+  let sourcePath = ''
+  try {
+    fs.statSync(templateFilePath)
+    sourcePath = templateFilePath
+  } catch (err) {
+    sourcePath = path.join(__dirname, templateFilePath)
+  }
   initArgs.forEach(function (initArg) {
     try {
-      fs.copySync(path.join(__dirname, templateFilePath), destFilePath)
+      fs.copySync(sourcePath, destFilePath)
     } catch (err) {
       console.error(err)
     }
@@ -32,6 +39,10 @@ if (program.template === 'yaml') {
 } else if (program.template === 'json') {
   _copyTemplateToPath(templateFileLocation.json, initArgs[0])
 } else {
-  console.error('Error : Please select proper template.')
-  process.exit(1)
+  let type = path.extname(program.template)
+  if (type !== '.yml' && type !== '.yaml' && type !== '.json') {
+    console.error('Error : Please select proper template.')
+    process.exit(1)
+  }
+  _copyTemplateToPath(program.template, initArgs[0])
 }
