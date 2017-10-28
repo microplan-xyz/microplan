@@ -203,6 +203,28 @@ $ npm version major # for deprecation
 
 **Important:** `microplan` uses an automated publishing system. That means whenever your PR is merged, `microplan` will be published automatically to npm (based on the version specified in the package.json)
 
+## Attributions
+
+Thanks to the awesome repositories without which the project would not have been possible.
+
+```js
+"devDependencies": {
+    "autopublish": "0.0.7",
+    "standard": "^9.0.2"
+  },
+  "dependencies": {
+    "async": "^2.1.2",
+    "commander": "^2.9.0",
+    "github-create-issue": "^2.0.0",
+    "gitlab-create-issue": "^1.0.1",
+    "home-dir": "^1.0.0",
+    "js-yaml": "^3.7.0",
+    "ora": "^0.4.0",
+    "underscore": "^1.8.3"
+  }
+
+```
+
 ## Thanks a lot!
 Thanks for checking out the project. We appreciate it! •ᴗ•
 
