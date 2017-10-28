@@ -205,3 +205,10 @@ $ npm version major # for deprecation
 
 ## Thanks a lot!
 Thanks for checking out the project. We appreciate it! •ᴗ•
+
+### Security
+Please report any security vulnerabilities of this project to [keybase.io/scriptnull](https://keybase.io/scriptnull)
+
+```bash
+curl https://keybase.io/scriptnull/pgp_keys.asc | gpg --import
+```
