@@ -4,9 +4,9 @@
   <br>
 </h1>
 
-> Plan your projects from the command line
+Plan your projects from the command line
 
-[![Run Status](https://api.shippable.com/projects/58287b8f8279be1000fa7edc/badge?branch=master)](https://app.shippable.com/projects/58287b8f8279be1000fa7edc)
+[![Build Status](https://semaphoreci.com/api/v1/scriptnull/microplan/branches/master/badge.svg)](https://semaphoreci.com/scriptnull/microplan)
 [![npm version](https://badge.fury.io/js/microplan.svg)](https://badge.fury.io/js/microplan)
 [![npm](https://img.shields.io/npm/dm/microplan.svg)](https://www.npmjs.com/package/microplan)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/microplan-xyz/microplan/blob/master/LICENSE)
