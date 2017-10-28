@@ -1,3 +1,5 @@
+var fs = require('fs')
+
 var parseSlug = function (slug) {
   var result = {
     namespace: null,
@@ -12,7 +14,16 @@ var parseSlug = function (slug) {
   return result
 }
 
+function fileExists (filePath) {
+  try {
+    return fs.statSync(filePath).isFile()
+  } catch (err) {
+    return false
+  }
+}
+
 module.exports =
 {
+  fileExists: fileExists,
   parseSlug: parseSlug
 }
