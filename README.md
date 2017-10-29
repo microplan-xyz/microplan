@@ -228,9 +228,6 @@ Thanks to the awesome repositories without which the project would not have been
 
 ```
 
-## Thanks a lot!
-Thanks for checking out the project. We appreciate it! •ᴗ•
-
 ### Security
 Please report any security vulnerabilities of this project to [keybase.io/scriptnull](https://keybase.io/scriptnull)
 
