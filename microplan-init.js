@@ -35,12 +35,12 @@ async.waterfall([
 function _parseInputFromUser (callback) {
   program
     .option('-t, --template <location>', 'specify input template location', templateFileLocation.yaml)
+    .option('-d, --directory <location>', 'specify plan output directory')
     .parse(process.argv)
 
   if (program.args.length < 1) {
     callback('Please specify a valid filename for plan output.', null)
   }
-
   var destFilePath = program.args[0]
 
   if (utils.fileExists(program.template) === false) {
@@ -51,9 +51,16 @@ function _parseInputFromUser (callback) {
 
   if (suppFileExtns.indexOf(fileExt) === -1) {
     callback('Template extension not supported. Please use supported file extensions: ' + suppFileExtns.join(', '), null)
-  } else {
-    callback(null, program.template, destFilePath)
   }
+
+  if (program.directory) {
+    if (utils.directoryExists(program.directory) === false) {
+      callback('Please provide a valid directory path', null)
+    }
+    destFilePath = path.join(program.directory, destFilePath)
+  }
+
+  callback(null, program.template, destFilePath)
 }
 
 function _getOptsFromUser (templateFilePath, destFilePath, callback) {
