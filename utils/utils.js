@@ -22,8 +22,17 @@ function fileExists (filePath) {
   }
 }
 
+function directoryExists (dirPath) {
+  try {
+    return fs.statSync(dirPath).isDirectory()
+  } catch (err) {
+    return false
+  }
+}
+
 module.exports =
 {
   fileExists: fileExists,
+  directoryExists: directoryExists,
   parseSlug: parseSlug
 }
