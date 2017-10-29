@@ -13,7 +13,6 @@ Plan your projects from the command line
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/microplan-xyz/Lobby)
 
 ### Inspiration
-
 > "I am a strong believer that great software comes from great people. If you worry only about the technology side of the equation, you're missing way more than half of the picture"
 >
 > -- Sam Newman (  "Evolutionary Architect", Building Microservices)
@@ -21,7 +20,6 @@ Plan your projects from the command line
 We want to solve the "Planning" side of the equation. And we want our tool to be handy. Talking of handy tools, the terminal comes to mind. So why not use that as our playground?
 
 ### Installation
-
 Microplan requires Node.js 0.12 or greater along with npm
 
 ```bash
@@ -29,18 +27,15 @@ $ npm install -g microplan
 ```
 
 ### Planning Tools
-
-We'll be using the following tools to illustrate how you can use microplan to plan and develop your software:
+The following issue trackers/messaging tools are supported by microplan.
 
 | Tool | Status |
 |------|--------|
 | [Github](https://github.com/) | AVAILABLE   |
 | [Gitlab](https://gitlab.com/) | AVAILABLE   |
 | [Gitter](https://gitter.im)   | AVAILABLE   |
-| [Slack](https://slack.com/)   | PLANNED     |
 
 ### Getting Started
-
 Let's say you want to create a user registration form in your app. Your workflow might look something like this:
 
 - Ping the UX team on Slack/Gitter to ask how the UI should look like
@@ -54,7 +49,6 @@ What if you had a consolidated solution baked right into your terminal?
 This is where microplan comes into the picture! Let's get started and publish this plan to the specified tools from the cozy comfort of your command line.
 
 ### Login
-
 Use the `login` command to store your credentials in the `.microplan` file in your HOME folder
 
 - Generate your GitHub `token` [here](https://github.com/settings/tokens)
@@ -67,11 +61,8 @@ $ microplan login
 
 ![anim](https://cloud.githubusercontent.com/assets/4211715/20641564/9cca34f2-b420-11e6-8155-8080fc33faa8.gif)
 
-
 ### Initialize
-
 `init` creates a file to help you get started with the planning flow
-
 
 ```bash
 $ microplan init [filename].yml
@@ -82,7 +73,6 @@ Yep, that's it! Open filename.yml to configure.
 ![anim](https://cloud.githubusercontent.com/assets/4211715/20641521/e8e06b5a-b41f-11e6-8dc3-9674c4fa4ca6.gif)
 
 ### Configuration
-
 Configurations lie at the heart of microplan and help you specify the platforms you want to publish to (eg. which repository to create an issue in or which room to plan the discussion in)
 
 ```yml
@@ -104,7 +94,6 @@ configuration:
 ```
 
 ### Plans
-
 The `plans` object is part of the same yml file and helps you express each step of your plan.
 
 ```yml
@@ -147,8 +136,7 @@ plans:
       ```
 ```
 
-## Publishing
-
+### Publishing
 Once you have written the plan, use the `publish` command to create the issues and send messages to specified rooms
 
 ```bash
@@ -180,42 +168,22 @@ $ microplan publish -h
 ![image](https://cloud.githubusercontent.com/assets/4211715/20642197/7b463f84-b42e-11e6-88b6-06959a59d8f0.png)
 
 ### Input Formats
-
-The configuration file can be written in various formats. We plan to add TOML soon.
+The configuration file can be written in various formats.
 
 | Format | Status |
 |--------|--------|
 | YAML   | AVAILABLE |
 | JSON   | AVAILABLE |
-| TOML   | PLANNED   |
 
 ### Contributors
 Authored and maintained by [@scriptnull](https://github.com/scriptnull) and [@argonlaser](https://github.com/argonlaser) with help from [contributors](http://github.com/microplan-xyz/microplan/contributors).
 
 ### Attributions
-Thanks to the awesome repositories without which the project would not have been possible.
-
-```js
-"devDependencies": {
-    "autopublish": "0.0.7",
-    "standard": "^9.0.2"
-  },
-  "dependencies": {
-    "async": "^2.1.2",
-    "commander": "^2.9.0",
-    "github-create-issue": "^2.0.0",
-    "gitlab-create-issue": "^1.0.1",
-    "home-dir": "^1.0.0",
-    "js-yaml": "^3.7.0",
-    "ora": "^0.4.0",
-    "underscore": "^1.8.3"
-  }
-
-```
+Thanks to [these awesome npm packages](https://github.com/microplan-xyz/microplan/blob/master/package.json#L28-L42) without which the project would not have been possible.
 
 ### Security
 Please report any security vulnerabilities of this project to [keybase.io/scriptnull](https://keybase.io/scriptnull)
 
 ```bash
-curl https://keybase.io/scriptnull/pgp_keys.asc | gpg --import
+$ curl https://keybase.io/scriptnull/pgp_keys.asc | gpg --import
 ```
