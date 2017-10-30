@@ -66,6 +66,17 @@ $ microplan login
 
 ```bash
 $ microplan init [filename].yml
+
+$ microplan init --help
+
+  Usage: microplan-init [options]
+
+  Options:
+
+    -t, --template <location>   specify input template location
+    -d, --directory <location>  specify plan output directory
+    -h, --help                  output usage information
+
 ```
 
 Yep, that's it! Open filename.yml to configure.
