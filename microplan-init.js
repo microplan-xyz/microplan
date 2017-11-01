@@ -34,7 +34,7 @@ async.waterfall([
 
 function _parseInputFromUser (callback) {
   program
-    .option('-t, --template <location>', 'specify input template location', templateFileLocation.yaml)
+    .option('-t, --template <location>', 'specify input template location', path.join(__dirname, templateFileLocation.yaml))
     .option('-d, --directory <location>', 'specify plan output directory')
     .parse(process.argv)
 
