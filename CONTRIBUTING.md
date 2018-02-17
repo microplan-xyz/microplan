@@ -1,3 +1,5 @@
+ **Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github) 
+
 Check the [issue tracker](https://github.com/microplan-xyz/microplan/issues) for all work in progress. Before sending a PR or adding a new feature, please take time to open an issue and begin a discussion about it.
 
 If you are sending a PR, make sure to change the version in package.json according to your changes. You can use the `npm version` command to achieve this
