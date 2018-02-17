@@ -11,6 +11,7 @@ Plan your projects from the command line
 [![npm](https://img.shields.io/npm/dm/microplan.svg)](https://www.npmjs.com/package/microplan)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/microplan-xyz/microplan/blob/master/LICENSE)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/microplan-xyz/Lobby)
+ [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 ### Inspiration
 > "I am a strong believer that great software comes from great people. If you worry only about the technology side of the equation, you're missing way more than half of the picture"
