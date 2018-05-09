@@ -32,7 +32,7 @@
   "dependencies": {
     "async": "^2.1.2",
     "commander": "^2.9.0",
-    "fs-extra": "^4.0.2",
+    "fs-extra": "^6.0.1",
     "github-create-issue": "^2.0.0",
     "gitlab-create-issue": "^1.0.1",
     "home-dir": "^1.0.0",
