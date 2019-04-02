@@ -37,7 +37,7 @@
     "gitlab-create-issue": "^1.0.1",
     "home-dir": "^1.0.0",
     "js-yaml": "^3.7.0",
-    "ora": "^0.4.0",
+    "ora": "^3.3.1",
     "underscore": "^1.8.3"
   }
 }
