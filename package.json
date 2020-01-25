@@ -30,7 +30,7 @@
     "standard": "^9.0.2"
   },
   "dependencies": {
-    "async": "^2.1.2",
+    "async": "^3.1.1",
     "commander": "^2.9.0",
     "fs-extra": "^4.0.2",
     "github-create-issue": "^2.0.0",
